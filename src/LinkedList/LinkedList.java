@@ -2,12 +2,39 @@ package LinkedList;
 
 import org.w3c.dom.Node;
 
+import java.util.HashSet;
+
 public class LinkedList {
     private Node head;
     private Node tail;
     private int length;
 
+    public void removeDuplicates() {
+
+        if (head == null) {return;}
+
+        HashSet<Integer> uniqueList = new HashSet<>();
+        Node current = head.next;
+        Node previous = head;
+
+        uniqueList.add(previous.value);
+
+        while (current != null) {
+            if (uniqueList.contains(current.value)) {
+                previous.next = current.next;
+                length--;
+            } else {
+                uniqueList.add(current.value);
+                previous = current;
+            }
+            current = current.next;
+        }
+    }
+
     public void partitionList(int x) {
+
+        if (head == null) {return;}
+
         Node dummy1 = new Node(0);
         Node dummy2 = new Node(0);
 
