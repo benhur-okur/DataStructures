@@ -13,6 +13,77 @@ public class DoublyLinkedList {
             this.value = value;
         }
     }
+
+    public void swapPairs () { // original : 2 31 3 4 31
+        if (length < 2) {
+            return;
+        }
+        Node realHead = head.next;
+
+
+        while (head != null && head.next != null) {
+            Node firstNode = head;
+            Node secondNode = head.next;
+
+            firstNode.next = secondNode.next;
+            secondNode.prev = firstNode.prev;
+            firstNode.prev = secondNode;
+            secondNode.next = firstNode;
+
+            if (firstNode.next != null) {
+                firstNode.next.prev = firstNode;
+            }
+
+            if (secondNode.prev != null) {
+                secondNode.prev.next = secondNode;
+            }
+
+
+            head = firstNode.next;
+        }
+        head = realHead;
+    }
+    public boolean isPalindrome () {
+        if (length == 0) {return false;}
+        if (length == 1) {return true;}
+        boolean isPalindrome = true;
+        Node hHead = head;
+        Node tTail = tail;
+
+        for (int i = 0;i<length/2;i++) {
+            if (hHead.value != tTail.value) {
+                isPalindrome = false;
+                break;
+            }
+            hHead = hHead.next;
+            tTail = tTail.prev;
+        }
+
+        return isPalindrome;
+    }
+
+    public void reverse() {
+        int value = 0;
+        Node first = head;
+        Node last = tail;
+        if(length > 1) {
+            for(int i = 0;i<length/2;i++) {
+                value = first.value;
+                first.value = last.value;
+                last.value = value;
+
+                first = first.next;
+                last = last.prev;
+            }
+        }
+
+    }
+    public void swapFirstLast() {
+        if (length < 2) {return;}
+        int headValue = head.value;
+        head.value = tail.value;
+        tail.value = headValue;
+    }
     public Node remove(int index) {
         if (index < 0 || index >= length) {return null;}
         if (index == 0) {
